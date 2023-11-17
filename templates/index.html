@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Interface</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='diseño.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='menu.css') }}">
+    
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<main>
+    <div>
+        <div class="capa">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Certus</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Biblioteca</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('static', filename='tutorial.html') }}">Tutoriales</a>
+                  </li>
+                  <li class="nav-item">
+                    
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+    </div>
+</main>
+<body>
+    <div class="container">
+    <div id="chat-container">
+        <div id="chat-display"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-button" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById('user-input').value;
+
+            if (userInput.trim() === '') {
+                return; // No enviar mensajes vacíos
+            }
+
+            var chatDisplay = document.getElementById('chat-display');
+            chatDisplay.innerHTML += `<div>User: ${userInput}</div>`;
+
+            fetch('/send_message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'user_input=' + encodeURIComponent(userInput),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    chatDisplay.innerHTML += `<div>Bot: ${data.bot_response}</div>`;
+                    // Hacer scroll al fondo del chat
+                    chatDisplay.scrollTop = chatDisplay.scrollHeight;
+                });
+
+            // Limpiar la entrada del usuario
+            document.getElementById('user-input').value = '';
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

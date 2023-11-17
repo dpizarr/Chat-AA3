@@ -1,0 +1,8 @@
+{
+    "respuestas": [
+        {"pregunta": "Hola", "respuesta": "¡Hola! ¿En qué puedo ayudarte?"},
+        {"pregunta": "¿Cómo estás?", "respuesta": "Estoy bien, gracias. ¿Y tú?"},
+        {"pregunta": "Adiós", "respuesta": "Hasta luego. ¡Que tengas un buen día!"},
+        {"pregunta": "¿Qué haces?", "respuesta": "Soy un chatbot. Mi función es ayudarte."}
+    ]
+}
